@@ -51,7 +51,12 @@ describe('getUpcomingEvents', () => {
     expect(result).toHaveLength(0);
   });
 
-  it('알림 시간이 지난 이벤트는 반환하지 않는다', () => {});
+  it('알림 시간이 지난 이벤트는 반환하지 않는다', () => {
+    const date = new Date('2024-11-01T11:00:00');
+    vi.setSystemTime(date);
+    const upcomingEvents = getUpcomingEvents(baseEvent as Event[], new Date(), []);
+    expect(upcomingEvents).toHaveLength(0);
+  });
 });
 
 describe('createNotificationMessage', () => {

@@ -68,7 +68,7 @@ export const setupMockHandlerDeletion = () => {
     {
       id: '1',
       title: '삭제할 이벤트',
-      date: '2024-10-15',
+      date: '2024-10-01',
       startTime: '09:00',
       endTime: '10:00',
       description: '삭제할 이벤트입니다',
