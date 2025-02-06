@@ -14,7 +14,7 @@ import { server } from '../setupTests';
 import { Event } from '../types';
 
 // ! HINT. 이 유틸을 사용해 리액트 컴포넌트를 렌더링해보세요.
-const setup = (element: ReactElement) => {
+export const setup = (element: ReactElement) => {
   const user = userEvent.setup();
 
   return { ...render(<ChakraProvider>{element}</ChakraProvider>), user }; // ? Medium: 여기서 ChakraProvider로 묶어주는 동작은 의미있을까요? 있다면 어떤 의미일까요?
@@ -248,8 +248,6 @@ describe('일정 뷰', () => {
     const viewSelect = screen.getByLabelText('view');
     await user.selectOptions(viewSelect, 'week');
 
-    // 뷰가 정상적으로 변경되었는지 확인
-
     const eventList = await screen.getByTestId('event-list');
     expect(within(eventList).getByText('다음 주 회의')).toBeInTheDocument();
     expect(within(eventList).getByText('2024-10-01')).toBeInTheDocument();
@@ -259,7 +257,7 @@ describe('일정 뷰', () => {
     const otherMonthEvent = {
       id: '1',
       title: '다른 달 회의',
-      date: '2024-11-15', // 현재 날짜(10/1)와 다른 달
+      date: '2024-11-15',
       startTime: '10:00',
       endTime: '11:00',
       description: '다른 달의 회의',
