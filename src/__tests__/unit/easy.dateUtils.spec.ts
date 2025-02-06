@@ -44,8 +44,8 @@ describe('getWeekDates', () => {
   });
 
   it('주의 시작(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
-    const monday = new Date('2024-07-08');
-    const weekDates = getWeekDates(monday);
+    const date = new Date('2024-07-08');
+    const weekDates = getWeekDates(date);
 
     expect(weekDates).toHaveLength(7);
     expect(weekDates[0].getDate()).toBe(7);
@@ -53,8 +53,8 @@ describe('getWeekDates', () => {
   });
 
   it('주의 끝(토요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
-    const sunday = new Date('2024-07-13');
-    const weekDates = getWeekDates(sunday);
+    const date = new Date('2024-07-13');
+    const weekDates = getWeekDates(date);
 
     expect(weekDates).toHaveLength(7);
     expect(weekDates[0].getDate()).toBe(7);
@@ -112,9 +112,51 @@ describe('getWeeksAtMonth', () => {
 
 describe('getEventsForDay', () => {
   const sampleEvents: Event[] = [
-    { id: '1', date: '2024-07-01', title: '이벤트 1' },
-    { id: '2', date: '2024-07-01', title: '이벤트 2' },
-    { id: '3', date: '2024-07-15', title: '이벤트 3' },
+    {
+      id: '1',
+      date: '2024-07-01',
+      title: '이벤트 1',
+      startTime: '',
+      endTime: '',
+      description: '',
+      location: '',
+      category: '',
+      repeat: {
+        type: 'none',
+        interval: 0,
+      },
+      notificationTime: 0,
+    },
+    {
+      id: '2',
+      date: '2024-07-01',
+      title: '이벤트 2',
+      startTime: '',
+      endTime: '',
+      description: '',
+      location: '',
+      category: '',
+      repeat: {
+        type: 'none',
+        interval: 0,
+      },
+      notificationTime: 0,
+    },
+    {
+      id: '3',
+      date: '2024-07-15',
+      title: '이벤트 3',
+      startTime: '',
+      endTime: '',
+      description: '',
+      location: '',
+      category: '',
+      repeat: {
+        type: 'none',
+        interval: 0,
+      },
+      notificationTime: 0,
+    },
   ];
 
   it('특정 날짜(1일)에 해당하는 이벤트만 정확히 반환한다', () => {

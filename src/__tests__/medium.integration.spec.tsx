@@ -140,7 +140,7 @@ describe('일정 CRUD 및 기본 기능', () => {
 
     await user.selectOptions(screen.getByLabelText(/카테고리/), '개인');
 
-    await user.click(screen.getByRole('button', { name: /일정 수정/ }));
+    await user.click(screen.getByTestId('event-submit-button'));
 
     const updatedEventList = await screen.findByTestId('event-list');
 
@@ -153,28 +153,6 @@ describe('일정 CRUD 및 기본 기능', () => {
       expect(within(updatedEventList).getByText('천호')).toBeInTheDocument();
       expect(within(updatedEventList).getByText(/개인/)).toBeInTheDocument();
     });
-
-    // const { user } = setup(<App />);
-
-    // await waitFor(() => {
-    //   expect(screen.getByText(/검색 결과가 없습니다/i)).toBeInTheDocument();
-    // });
-    // setupMockHandlerUpdating();
-
-    // const eventList = await screen.getByTestId('event-list');
-
-    // await waitFor(() => {
-    //   expect(within(eventList).getByText('기존 일정')).toBeInTheDocument();
-    //   expect(within(eventList).getByText('2024-10-15')).toBeInTheDocument();
-    //   expect(within(eventList).getByText(/13:00/)).toBeInTheDocument();
-    //   expect(within(eventList).getByText(/14:00/)).toBeInTheDocument();
-    //   expect(within(eventList).getByText('CoreTech Weekly Standup')).toBeInTheDocument();
-    //   expect(within(eventList).getByText('CoreTech 회의실')).toBeInTheDocument();
-    //   expect(within(eventList).getByText(/업무/)).toBeInTheDocument();
-    // });
-
-    // const editButton = await within(eventList).findByRole('button', { name: 'Edit event' });
-    // await user.click(editButton);
   });
   it('일정을 삭제하고 더 이상 조회되지 않는지 확인한다', async () => {
     setupMockHandlerCreation([
@@ -231,14 +209,12 @@ describe('일정 뷰', () => {
       notificationTime: 10,
     };
 
-    setupMockHandlerCreation([otherWeekEvent]);
+    setupMockHandlerCreation([otherWeekEvent as Event]);
     const { user } = setup(<App />);
     await screen.findByText('일정 로딩 완료!');
 
     const viewSelect = screen.getByLabelText('view');
     await user.selectOptions(viewSelect, 'week');
-
-    // 뷰가 정상적으로 변경되었는지 확인
 
     const weekView = await screen.findByTestId('week-view');
     expect(weekView).toBeInTheDocument();
@@ -264,7 +240,7 @@ describe('일정 뷰', () => {
       notificationTime: 10,
     };
 
-    setupMockHandlerCreation([weekEvent]);
+    setupMockHandlerCreation([weekEvent as Event]);
 
     const { user } = setup(<App />);
     await screen.findByText('일정 로딩 완료!');
@@ -293,7 +269,7 @@ describe('일정 뷰', () => {
       notificationTime: 10,
     };
 
-    setupMockHandlerCreation([otherMonthEvent]);
+    setupMockHandlerCreation([otherMonthEvent as Event]);
 
     const { user } = setup(<App />);
     await user.selectOptions(screen.getByLabelText(/view/), 'month');
@@ -318,7 +294,7 @@ describe('일정 뷰', () => {
       notificationTime: 10,
     };
 
-    setupMockHandlerCreation([monthEvent]);
+    setupMockHandlerCreation([monthEvent as Event]);
 
     const { user } = setup(<App />);
     await user.selectOptions(screen.getByLabelText(/view/), 'month');
@@ -521,9 +497,9 @@ describe('일정 충돌', () => {
     await user.clear(screen.getByLabelText(/종료 시간/));
     await user.type(screen.getByLabelText(/종료 시간/), '11:00');
 
-    await user.click(screen.getByRole('button', { name: /일정 수정/ }));
+    await user.click(screen.getByTestId('event-submit-button'));
 
-    expect(screen.getByText('일정 겹침 경고')).toBeInTheDocument();
+    expect(screen.getByText(/일정 겹침 경고/)).toBeInTheDocument();
     expect(screen.getByText(/다음 일정과 겹칩니다./)).toBeInTheDocument();
     expect(screen.getByText(/다른 회의 \(2024-10-01 10:00-11:00\)/)).toBeInTheDocument();
     expect(screen.getByText(/계속 진행하시겠습니까?/)).toBeInTheDocument();

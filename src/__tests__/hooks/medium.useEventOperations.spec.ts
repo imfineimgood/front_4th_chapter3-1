@@ -41,6 +41,7 @@ describe('useEventOperations', () => {
     const { result } = renderHook(() => useEventOperations(false));
 
     const newEvent: Event = {
+      id: '1',
       title: '새로운 회의',
       date: '2025-02-20',
       startTime: '14:00',
@@ -146,7 +147,21 @@ describe('useEventOperations', () => {
 
     const { result } = renderHook(() => useEventOperations(true));
     await act(async () => {
-      await result.current.saveEvent({ id: '2', title: '일정 저장 실패' });
+      await result.current.saveEvent({
+        id: '2',
+        title: '일정 저장 실패',
+        date: '',
+        startTime: '',
+        endTime: '',
+        description: '',
+        location: '',
+        category: '',
+        repeat: {
+          type: 'none',
+          interval: 0,
+        },
+        notificationTime: 0,
+      });
     });
 
     expect(toastFn).toHaveBeenCalledWith(

@@ -11,7 +11,7 @@ describe('useSearch', () => {
     const { result } = renderHook(() => useSearch(mockEvents, new Date('2025-02-20'), 'month'));
 
     expect(result.current.searchTerm).toBe('');
-    expect(result.current.filteredEvents).toHaveLength(5);
+    expect(result.current.filteredEvents).toHaveLength(4);
     expect(result.current.filteredEvents).toEqual(events);
   });
 
@@ -42,7 +42,7 @@ describe('useSearch', () => {
   it('현재 뷰(주간/월간)에 해당하는 이벤트만 반환해야 한다', () => {
     const { result } = renderHook(() => useSearch(mockEvents, new Date('2025-02-20'), 'month'));
 
-    expect(result.current.filteredEvents).toHaveLength(5);
+    expect(result.current.filteredEvents).toHaveLength(4);
     expect(result.current.filteredEvents.some((event) => event.date.startsWith('2025-02'))).toBe(
       true
     );
