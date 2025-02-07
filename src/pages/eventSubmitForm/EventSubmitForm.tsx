@@ -48,7 +48,7 @@ interface Props {
   editingEvent: Event | null;
 }
 
-export const EventSubmitForm: React.FC<Props> = ({
+export const EventSubmitForm = ({
   addOrUpdateEvent,
   title,
   setTitle,
@@ -77,7 +77,7 @@ export const EventSubmitForm: React.FC<Props> = ({
   handleStartTimeChange,
   handleEndTimeChange,
   editingEvent,
-}) => {
+}: Props) => {
   return (
     <VStack w="400px" spacing={5} align="stretch">
       <Heading>{editingEvent ? '일정 수정' : '일정 추가'}</Heading>

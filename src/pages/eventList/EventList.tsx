@@ -21,7 +21,7 @@ interface Props {
   onEdit: (event: Event) => void;
 }
 
-export const EventList: React.FC<Props> = ({ events, notifiedEvents, onDelete, onEdit }) => {
+export const EventList = ({ events, notifiedEvents, onDelete, onEdit }: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredEvents = events.filter(

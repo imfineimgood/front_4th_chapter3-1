@@ -11,7 +11,7 @@ import { EventList } from './pages/eventList/EventList.tsx';
 import { EventSubmitForm } from './pages/eventSubmitForm/EventSubmitForm.tsx';
 import { Notification } from './pages/notification/Notification.tsx';
 import { OverlapAlert } from './pages/overlapAlert/OverlapAlert.tsx';
-import { Event, EventForm, RepeatType } from './types';
+import { Event, EventForm } from './types';
 import { findOverlappingEvents } from './utils/eventOverlap';
 
 function App() {
@@ -52,7 +52,7 @@ function App() {
     setEditingEvent(null)
   );
 
-  const { notifications, notifiedEvents } = useNotifications(events);
+  const { notifiedEvents } = useNotifications(events);
   const { view, setView, currentDate, holidays, navigate } = useCalendarView();
   const { filteredEvents } = useSearch(events, currentDate, view);
 

@@ -82,7 +82,7 @@ describe('EventSubmitForm', () => {
   });
 
   it('시간 에러가 있을 때 툴팁이 표시된다', () => {
-    const { user } = setup(
+    setup(
       <EventSubmitForm
         {...mockProps}
         startTimeError="시작 시간 에러"
