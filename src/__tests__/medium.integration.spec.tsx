@@ -1,7 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { render, screen, within, act, waitFor } from '@testing-library/react';
 import { UserEvent, userEvent } from '@testing-library/user-event';
-import { http, HttpResponse } from 'msw';
 import { ReactElement } from 'react';
 
 import {
@@ -10,7 +9,6 @@ import {
   setupMockHandlerUpdating,
 } from '../__mocks__/handlersUtils';
 import App from '../App';
-import { server } from '../setupTests';
 import { Event } from '../types';
 
 // ! HINT. 이 유틸을 사용해 리액트 컴포넌트를 렌더링해보세요.
@@ -40,7 +38,12 @@ const saveSchedule = async (
   await user.click(screen.getByTestId('event-submit-button'));
 };
 
+afterEach(() => {
+  vi.useRealTimers();
+});
+
 // ! HINT. "검색 결과가 없습니다"는 초기에 노출되는데요. 그럼 검증하고자 하는 액션이 실행되기 전에 검증해버리지 않을까요? 이 테스트를 신뢰성있게 만드려면 어떻게 할까요?
+
 describe('일정 CRUD 및 기본 기능', () => {
   it('입력한 새로운 일정 정보에 맞춰 모든 필드가 이벤트 리스트에 정확히 저장된다.', async () => {
     // ! HINT. event를 추가 제거하고 저장하는 로직을 잘 살펴보고, 만약 그대로 구현한다면 어떤 문제가 있을 지 고민해보세요.
@@ -521,7 +524,7 @@ it('notificationTime을 10으로 하면 지정 시간 10분 전 알람 텍스트
       notificationTime: 10,
     },
   ]);
-  const { user } = setup(<App />);
+  setup(<App />);
 
   await screen.findByText('일정 로딩 완료!');
   await waitFor(() => {
